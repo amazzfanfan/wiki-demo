@@ -57,16 +57,16 @@ _PROVIDERS = {
     "dsv4pro": {
         "key_env": "DSV4PRO_API_KEY",
         "url_env": "DSV4PRO_BASE_URL",
-        "url_default": "http://10.180.1.206:30000",
+        "url_default": "http://your-internal-llm-service:30000",
         "model_env": "DSV4PRO_MODEL_ID",
-        "model_default": "deepseek-v4-pro",
+        "model_default": "/your/model/path",
     },
     "glm": {
         "key_env": "GLM_API_KEY",
         "url_env": "GLM_BASE_URL",
-        "url_default": "http://10.180.1.202:30000",
+        "url_default": "http://your-internal-llm-service:30000",
         "model_env": "GLM_MODEL_ID",
-        "model_default": "/models/GLM-5.2-W4A8",
+        "model_default": "/your/model/path",
     },
 }
 

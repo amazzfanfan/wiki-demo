@@ -38,15 +38,15 @@ PRESET_PROVIDERS = {
         "env_key": "SILICONFLOW_API_KEY",
     },
     "glm52": {
-        "name": "GLM 5.2 (智谱 · 公司部署)",
-        "base_url": "http://10.180.1.202:30000/v1",
-        "model_id": "/models/GLM-5.2-W4A8",
+        "name": "GLM（私有化部署）",
+        "base_url": "http://your-internal-llm-service:30000/v1",
+        "model_id": "/your/model/path",
         "env_key": "GLM_API_KEY",
     },
     "dsv4pro_internal": {
-        "name": "DeepSeek V4 Pro (公司部署)",
-        "base_url": "http://10.180.1.206:30000/v1",
-        "model_id": "deepseek-v4-pro",
+        "name": "DeepSeek（私有化部署）",
+        "base_url": "http://your-internal-llm-service:30000/v1",
+        "model_id": "/your/model/path",
         "env_key": "DSV4PRO_API_KEY",
     },
     "custom": {
@@ -126,21 +126,21 @@ def _get_user_default_provider(user_id: str) -> Optional[dict]:
 
 
 def get_default_model() -> OpenAILike:
-    """获取系统默认模型：公司预置 GLM 5.2 → DSV4Pro → 报错"""
+    """获取系统默认模型：私有化 GLM → DeepSeek → 报错"""
     glm_key = os.getenv("GLM_API_KEY")
     if glm_key:
         return OpenAILike(
-            id=os.getenv("GLM_MODEL_ID", "/models/GLM-5.2-W4A8"),
+            id=os.getenv("GLM_MODEL_ID", "/your/model/path"),
             api_key=glm_key,
-            base_url=os.getenv("GLM_BASE_URL", "http://10.180.1.202:30000/v1"),
+            base_url=os.getenv("GLM_BASE_URL", "http://your-internal-llm-service:30000/v1"),
             role_map={"system": "system", "user": "user", "assistant": "assistant", "tool": "tool"},
         )
     ds_key = os.getenv("DSV4PRO_API_KEY")
     if ds_key:
         return OpenAILike(
-            id="deepseek-v4-pro",
+            id=os.getenv("DSV4PRO_MODEL_ID", "/your/model/path"),
             api_key=ds_key,
-            base_url=os.getenv("DSV4PRO_BASE_URL", "http://10.180.1.206:30000/v1"),
+            base_url=os.getenv("DSV4PRO_BASE_URL", "http://your-internal-llm-service:30000/v1"),
             role_map={"system": "system", "user": "user", "assistant": "assistant", "tool": "tool"},
         )
     raise ValueError("⚠️ 未找到任何模型 API Key，请检查 .env 或配置自定义 API Key！")
@@ -156,9 +156,9 @@ def _create_model(api_key: str, base_url: str, model_id: str) -> OpenAILike:
             break
 
     if not base_url:
-        base_url = os.getenv("DSV4PRO_BASE_URL", "http://10.180.1.206:30000/v1")
+        base_url = os.getenv("DSV4PRO_BASE_URL", "http://your-internal-llm-service:30000/v1")
     if not model_id:
-        model_id = "deepseek-v4-pro"
+        model_id = os.getenv("DSV4PRO_MODEL_ID", "/your/model/path")
 
     return OpenAILike(
         id=model_id,

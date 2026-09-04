@@ -148,12 +148,12 @@ class MinIOBackend(StorageBackend):
         from minio import Minio
 
         self._client = Minio(
-            endpoint=os.environ.get("MINIO_ENDPOINT", "113.249.91.68:9000"),
+            endpoint=os.environ.get("MINIO_ENDPOINT", "localhost:9000"),
             access_key=os.environ.get("MINIO_ACCESS_KEY", ""),
             secret_key=os.environ.get("MINIO_SECRET_KEY", ""),
             secure=False,
         )
-        self.bucket = os.environ.get("MINIO_BUCKET", "wiki-test")
+        self.bucket = os.environ.get("MINIO_BUCKET", "your_bucket")
 
     # ── 文本读写 ──
 
