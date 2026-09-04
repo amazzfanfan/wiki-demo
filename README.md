@@ -6,6 +6,30 @@
 
 ---
 
+## 界面展示
+
+### 知识关系网络
+
+以力导向图展示 Wiki 概念及双链关系，并提供死链检测、缺失概念填补和知识审查入口。
+
+![知识关系网络](docs/images/knowledge-graph-overview.png)
+
+### Wiki 概念页
+
+在知识网络中查看概念详情、关联页面及来源内容。
+
+<p align="center">
+  <img src="docs/images/wiki-concept-detail.png" alt="Wiki 概念页" width="760">
+</p>
+
+### 多源知识问答
+
+结合本地 Wiki 与联网检索生成带来源说明的知识回答。
+
+![多源知识问答](docs/images/knowledge-qa.png)
+
+---
+
 ## 已实现功能
 
 ### 🧠 知识引擎
